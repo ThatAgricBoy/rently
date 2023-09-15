@@ -8,42 +8,22 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <header>
-        <div class="nav-elements">
-            <div class="logo">
-                <a href="{{ url_for('views.index') }}">
-                    <img src="../static/image/logo.png" alt="Website Logo">
-                </a>
-            </div>
-            <div class="bx bx-menu" id="menu-icon"></div>
-
-            <div class="nav_links">
-                <a href="#home" class="active">Home</a>
-                <a>|</a>
-                <a href="{{ url_for('auth.login') }}">Log in</a>
-                <a>|</a>
-                <a href="{{ url_for('views.create_property') }}">
-                    <img src="../static/image/home-2_icon.png" alt="Form" class="formicon">
-                </a>
-                <!-- <a>|</a> -->
-                <!-- <a href="{{ url_for('auth.login') }}">Log out</a> -->
-            </div>
-        </div>
-        <!-- Mobile navigation -->
-        <!-- <div class="mobile-nav">
-            <button id="menu-button"><i class='bx bx-menu-alt-right'></i></button>
-            <ul id="menu">
-                Add your navigation links here -->
-                <!-- <a href="#home" class="active">Home</a>
-                <a href="{{ url_for('auth.login') }}">Log in</a>
-                <a href="{{ url_for('views.create_property') }}">
-                    <img src="../static/image/home-2_icon.png" alt="Form" class="formicon">
-                </a>
-                <a href="{{ url_for('auth.login') }}">Log out</a>
-            </ul>
-        </div> -->
-
-    </header>
+     <header>
+         <div class="logo">
+        <img src="../static/image/logo.png" alt="Logo">
+    </div>
+         <div class="nav_links">
+             <a href="#" class="active">Home</a>
+             <a>|</a>
+             <a href="{{ url_for('auth.login') }}">Log in</a>
+             <a>|</a>
+             <a href="{{ url_for('views.create_property') }}">
+                 <img src="../static/image/home-2_icon.png" alt="Form" class="formicon">
+             </a>
+             <!-- <a>|</a> -->
+             <!-- <a href="{{ url_for('auth.login') }}">Log out</a> -->
+    </div>
+</header>
     <main>
         <div class="landing-content">
             <div class="image">
