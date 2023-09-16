@@ -484,16 +484,15 @@ a:hover .formicon {
     color: #666;
 }
 
-/* Add these styles to your CSS file */
 
 .about-section {
     display: flex;
-    flex-direction: column; /* Change to 'row' to display side by side */
+    flex-direction: column;
     align-items: center;
-    background-color: #f9f9f9; /* Light gray background */
+    background-color: #f9f9f9;
     padding: 40px 0;
     text-align: center;
-    color: #333; /* Dark gray text color */
+    color: #333;
 }
 
 .about-section h2 {
@@ -504,16 +503,15 @@ a:hover .formicon {
 .inspiration-story,
 .team-vision {
     font-size: 16px;
-    /* width: 50%; Remove the width property */
-    flex: 1; /* Use flex to distribute available space equally */
+    flex: 1;
     line-height: 1.5;
     margin-bottom: 20px;
-    text-align: left; /* Left-align the text within the story */
-    background-color: #f4f4f4; /* Light gray background color */
-    padding: 20px; /* Add some padding for spacing */
-    border-radius: 10px; /* Rounded corners */
-    border: 1px solid #ccc; /* Add a border */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    text-align: left;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .inspiration-container {
@@ -554,10 +552,6 @@ a:hover .formicon {
     background-color: #333;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-    /* Add mobile-specific styles here */
-}
 
 /* Hide menu by default */
 #menu {
@@ -569,7 +563,6 @@ a:hover .formicon {
     display: block;
 }
 
-/* Add this to your existing CSS or a new stylesheet */
 .testimonials {
     background-color: #f9f9f9;
     padding: 40px 0;
@@ -626,4 +619,9 @@ a:hover .formicon {
 
 #nextTestimonial {
     margin-left: 20px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    /* Add mobile-specific styles here */
 }
