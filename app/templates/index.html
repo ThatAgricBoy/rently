@@ -9,9 +9,10 @@
 </head>
 <body>
      <header>
-         <div class="logo">
-        <img src="../static/image/logo.png" alt="Logo">
-    </div>
+      <div class="logo">
+                <a href="#">
+                    <img src="../static/image/logo.png" alt="Website Logo"></a>
+            </div>
          <div class="nav_links">
              <a href="#" class="active">Home</a>
              <a>|</a>
@@ -100,7 +101,6 @@
         </p>
     </div>
 </section>
-        <!-- Add this section following the Feature section -->
 <section class="about-section">
     <h2>Our Story</h2>
     <div class="inspiration-container">
@@ -116,18 +116,35 @@
         create a platform that makes finding your ideal rental property easier and more affordable.
     </p>
     </div>
-    <!-- Add links to team member profiles -->
     <div class="team-links">
         <a href="https://github.com/ocheja1" target="_blank">Ocheja Favour - GitHub</a><br>
         <a href="https://github.com/thatagricboy" target="_blank">Samuel John - GitHub</a><br>
-        <!-- Add similar links for other team members -->
     </div>
-    <!-- Add link to the project's GitHub repository -->
     <div class="github-link">
-        <a href="https://github.com/rently" target="_blank">GitHub Repository</a>
+        <a href="https://github.com/thatagricboy/reny" target="_blank">GitHub Repository</a>
     </div>
 </section>
-
+        <section class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-container">
+        <div class="testimonial">
+            <p>"I found my dream rental property on Rently. It was so easy and hassle-free!"</p>
+            <p class="author">- Kolawole Emmanuel</p>
+        </div>
+        <div class="testimonial">
+            <p>"Rently made my property search a breeze. Highly recommended!"</p>
+            <p class="author">- Abiodun Aliu</p>
+        </div>
+        <div class="testimonial">
+            <p>"I love Rently's user-friendly interface. It saved me a lot of time."</p>
+            <p class="author">- Michael Johnson</p>
+        </div>
+    </div>
+    <div class="testimonial-navigation">
+        <button id="prevTestimonial" onclick="prevTestimonial()">&#9665;</button>
+        <button id="nextTestimonial" onclick="nextTestimonial()">&#9655;</button>
+    </div>
+</section>
     </main>
     <footer class="site-footer">
         <div class="container">
@@ -158,5 +175,6 @@
     </footer>
     <script src="../static/js/script.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcx9Iutbbu_P404pPzgoXH6GAqB2e0S5k&callback=initMap" async defer></script>
+    <script src="../static/js/testimonials.js"></script>
 </body>
 </html>
