@@ -1,0 +1,8 @@
+<!-- macros.html -->
+{% macro render_login_btn() %}
+    <a href="{{ url_for('auth.login') }}">Log in</a>
+{% endmacro %}
+
+{% macro render_logout_btn() %}
+    <a href="{{ url_for('auth.logout') }}">Log out</a>
+{% endmacro %}

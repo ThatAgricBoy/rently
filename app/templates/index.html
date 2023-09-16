@@ -1,3 +1,9 @@
+{% from "macros.html" import render_field %}
+{% from "macros.html" import render_btn %}
+{% from "macros.html" import render_login_btn %}
+{% from "macros.html" import render_logout_btn %}
+{% from "macros.html" import render_alert %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +20,13 @@
                     <img src="../static/image/logo.png" alt="Website Logo"></a>
             </div>
          <div class="nav_links">
-             <a href="#" class="active">Home</a>
-             <a>|</a>
-             <a href="{{ url_for('auth.login') }}">Log in</a>
+            <a href="#" class="active">Home</a>
+            <a>|</a>
+            {% if current_user.is_authenticated %}
+                {{ render_logout_btn() }}
+            {% else %}
+                {{ render_login_btn() }}
+            {% endif %}
              <a>|</a>
              <a href="{{ url_for('views.create_property') }}">
                  <img src="../static/image/home-2_icon.png" alt="Form" class="formicon">
