@@ -59,3 +59,31 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return '<User {}>'.format(self.fullname)
+
+
+class State(db.Model):
+    __tablename__ = 'states'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '{}'.format(self.name)
+
+
+class LGA(db.Model):
+    __tablename__ = 'lgas'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    state_id = db.Column(db.Integer, db.ForeignKey('states.id', ondelete='CASCADE'), nullable=False)
+    state = db.relationship('State', backref=db.backref('lgas', lazy=True))
+
+    def __init__(self, name, state_id):
+        self.name = name
+        self.state_id = state_id
+
+    def __repr__(self):
+        return '<LGA {}>'.format(self.name)
+

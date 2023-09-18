@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request
+from flask import Blueprint, render_template, flash, redirect, url_for, request, jsonify
 from flask_login import login_required, current_user
-from .models import Property
+from .models import Property, State, LGA
 from .forms import PropertyForm, SearchForm
 from . import db
 import base64
@@ -20,6 +20,9 @@ def index():
 def create_property():
     form = PropertyForm()
 
+    # Populate the state choices for the form
+    form.state.choices = [(state.name, state.name) for state in State.query.all()]
+
     if request.method == 'POST' and form.validate_on_submit():
         try:
             # Extract form data
@@ -30,13 +33,20 @@ def create_property():
             property_type = form.property_type.data
             number_of_beds = form.number_of_beds.data
             location = form.location.data
-            state = form.state.data
-            lga = form.lga.data
+            state_name = form.state.data  # Get the selected state name
+
+            # Find the selected state instance
+            selected_state = State.query.filter_by(name=state_name).first()
+
+            # Get the selected LGA based on the form's LGA field
+            selected_lga_id = form.lga.data
+            selected_lga = LGA.query.get(selected_lga_id)
+
             street = form.street.data
             price = float(form.price.data)
             youtube_links = form.youtube_links.data
 
-            image_file = form.image_upload.data  # Access the uploaded file
+            image_file = form.image_upload.data
 
             if image_file:
                 # Read binary image data
@@ -52,8 +62,8 @@ def create_property():
                     property_type=property_type,
                     number_of_beds=number_of_beds,
                     location=location,
-                    state=state,
-                    lga=lga,
+                    state=selected_state,  # Use the selected state instance
+                    lga=selected_lga,  # Use the selected LGA instance
                     street=street,
                     price=price,
                     image_data=image_data,  # Store binary image data
@@ -80,11 +90,11 @@ def listings():
     form = SearchForm()
 
     if form.validate_on_submit():
-        desired_state = form.desired_location.data.lower()
+        desired_state = form.desired_location.data
         print(f"Desired State: {desired_state}")
 
         # Query the database for properties based on the desired state
-        properties = Property.query.filter_by(state=desired_state).all()
+        properties = Property.query.filter(Property.state.ilike(desired_state)).all()
         print(f"Properties found: {properties}")
 
         # Encode image data as base64 for each property
@@ -103,4 +113,20 @@ def listings():
     return render_template('list.html', properties=properties, form=form)
 
 
+@views.route('/get_states', methods=['GET'])
+def get_states():
+    states = State.query.all()
+    state_list = [{'id': state.id, 'name': state.name} for state in states]
+    return jsonify(state_list)
 
+
+@views.route('/get_lgas/<string:state_name>', methods=['GET'])
+def get_lgas(state_name):
+    state = State.query.filter_by(name=state_name).first()
+
+    if state:
+        lgas = state.lgas  # Use the relationship defined in the new model
+        lga_list = [{'id': lga.id, 'name': lga.name} for lga in lgas]
+        return jsonify(lga_list)
+    else:
+        return jsonify([])

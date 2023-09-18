@@ -17,28 +17,71 @@ body {
     scroll-behavior: smooth;
 }
 
-.nav-elements{
+/*.nav-elements{*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-between;*/
+
+/*}*/
+
+/*#menu-icon{*/
+/*    font-size: 3.6rem;*/
+/*    color: lightseagreen;*/
+/*    cursor: pointer;*/
+/*    display: none;*/
+/*}*/
+
+/*.nav_links{*/
+/*    display: flex;*/
+/*    gap: 15px;*/
+/*    margin-top: 60px;*/
+/*    margin-right: 4rem;*/
+/*}*/
+
+/*.nav_links a{*/
+/*    text-decoration: none;*/
+/*    font-weight: bold;*/
+/*    color: #ffffff;*/
+/*    font-weight: 700;*/
+/*    font-size: 20px;*/
+/*    letter-spacing: 0;*/
+/*    line-height: normal;*/
+/*}*/
+
+/*.nav_links a:hover,*/
+/*.nav_links a.active {*/
+/*    color: #4561EC;*/
+/*}*/
+
+/*.logo img{*/
+/*    width: 200px;*/
+/*    height: auto;*/
+/*    z-index: 2;*/
+/*}*/
+header {
+    background-color: #000000;
+    padding: 0;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-
+    align-items: center;
+    height: 60px;
 }
 
-#menu-icon{
-    font-size: 3.6rem;
-    color: lightseagreen;
-    cursor: pointer;
-    display: none;
+/* Logo styling */
+.logo img {
+    max-width: 150px;
+    height: auto;
+    padding-top: 45px;
 }
 
-.nav_links{
+/* Navigation links styling */
+.nav_links {
     display: flex;
     gap: 15px;
-    margin-top: 60px;
-    margin-right: 4rem;
+    padding-right: 20px;
 }
 
-.nav_links a{
+.nav_links a {
     text-decoration: none;
     font-weight: bold;
     color: #ffffff;
@@ -51,12 +94,6 @@ body {
 .nav_links a:hover,
 .nav_links a.active {
     color: #4561EC;
-}
-
-.logo img{
-    width: 200px;
-    height: auto;
-    z-index: 2;
 }
 
 /* Add this to your existing CSS file */

@@ -9,12 +9,12 @@
 <body>
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
-<div class="alert alert-danger">
-    <ul>
-        {% for category, message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
+<div class="alert-messages">
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
 </div>
 {% endif %}
 {% endwith %}
@@ -70,13 +70,19 @@
                 <option value="" disabled selected>Select a State</option>
                 <!-- Add more state options here -->
             </select>
-            <br><br>
+            {% if form.state.errors %}
+            <div class="error">{{ form.state.errors[0] }}</div>
+            {% endif %}
 
+            <!-- Local Government Area (LGA) field -->
             <label for="lga">Local Government Area:</label>
             <select id="lga" name="lga" required>
                 <option value="" disabled selected>Select an LGA</option>
                 <!-- LGAs will be populated dynamically based on the selected state -->
             </select>
+            {% if form.lga.errors %}
+            <div class="error">{{ form.lga.errors[0] }}</div>
+            {% endif %}
             <br><br>
 
             <label for="street">Street Name:</label>
@@ -112,6 +118,6 @@
         <!-- Submit Button -->
         <button type="submit">Submit</button>
     </form>
-    <script src="../static/js/PropertyForm.js"></script>
+    <script src="../static/js/form.js"></script>
 </body>
 </html>

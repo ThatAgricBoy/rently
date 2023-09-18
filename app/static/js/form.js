@@ -1,57 +1,44 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FileField
-from wtforms.validators import DataRequired, Email, length, InputRequired, NumberRange
-from wtforms import SelectField, TextAreaField, DecimalField
-from wtforms.validators import EqualTo
+// form.js
+
+// Define a dictionary to map states to LGAs
+const states = ["--Not Specified--","Oyo",  "Abuja", "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross River",
+                "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina",
+                "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Plateau",
+                "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara"];
 
 
-class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Login')
-
-
-class SignupForm(FlaskForm):
-    fullName = StringField('Full Name', validators=[DataRequired()])
-    email = StringField('Email Address', validators=[DataRequired(), Email()])
-    password1 = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField('Confirm Password',
-                              validators=[DataRequired(), EqualTo('password1', message='Passwords must match')])
-    submit = SubmitField('Sign Up')
-
-
-state_lga_mapping = {
+const lgas = {
     'Oyo': ["Afijio", "Akinyele", "Atiba", "Atisbo", "Egbeda", "Ibadan North", "Ibadan North-East", "Ibadan North-West",
             "Ibadan South-East", "Ibadan South-West", "Ibarapa Central", "Ibarapa East", "Ibarapa North", "Ido",
             "Irepo", "Iseyin", "Itesiwaju", "Iwajowa", "Kajola", "Lagelu", "Ogbomoso North", "Ogbomoso South",
             "Ogo Oluwa", "Oluyole", "Ona Ara", "Orelope", "Ori Ire", "Oyo East", "Oyo West", "Saki East",
             "Saki West", "Surulere"],
     'Abuja': ["Central Business District", "Garki", "Wuse", "Maitama", "Asokoro", "Utako", "Jabi",
-              "Gwarimpa", "Karu", "Kubwa", "Nyanya"],
+                   "Gwarimpa", "Karu", "Kubwa", "Nyanya"],
     'Abia': ["Aba North", "Aba South", "Arochukwu", "Bende", "Ikwuano", "Isiala Ngwa North", "Isiala Ngwa South",
-             "Isuikwuato", "Obingwa", "Ohafia", "Osisioma Ngwa", "Ugwunagbo", "Ukwa East", "Ukwa West",
-             "Umuahia North", "Umuahia South", "Umu Nneochi"],
+                "Isuikwuato", "Obingwa", "Ohafia", "Osisioma Ngwa", "Ugwunagbo", "Ukwa East", "Ukwa West",
+                "Umuahia North", "Umuahia South", "Umu Nneochi"],
     'Adamawa': ["Demsa", "Fufore", "Ganye", "Girei", "Gombi", "Guyuk", "Hong", "Jada", "Lamurde", "Madagali",
                 "Maiha", "Mayo-Belwa", "Michika", "Mubi North", "Mubi South", "Numan", "Shelleng", "Song",
                 "Toungo", "Yola North", "Yola South"],
     'Akwa Ibom': ["Abak", "Eastern Obolo", "Eket", "Esit Eket", "Essien Udim", "Etim Ekpo", "Etinan", "Ibeno",
-                  "Ibesikpo Asutan", "Ibiono Ibom", "Ika", "Ikono", "Ikot Abasi", "Ikot Ekpene", "Ini", "Itu",
-                  "Mbo", "Mkpat Enin", "Nsit Atai", "Nsit Ibom", "Nsit Ubium", "Obot Akara", "Okobo", "Onna",
-                  "Oron", "Oruk Anam", "Ukanafun", "Udung Uko", "Uruan", "Urue-Offong/Oruko", "Uyo"],
+                "Ibesikpo Asutan", "Ibiono Ibom", "Ika", "Ikono", "Ikot Abasi", "Ikot Ekpene", "Ini", "Itu",
+                "Mbo", "Mkpat Enin", "Nsit Atai", "Nsit Ibom", "Nsit Ubium", "Obot Akara", "Okobo", "Onna",
+                "Oron", "Oruk Anam", "Ukanafun", "Udung Uko", "Uruan", "Urue-Offong/Oruko", "Uyo"],
     'Anambra': ["Aguata", "Anambra East", "Anambra West", "Anaocha", "Awka North", "Awka South", "Ayamelum",
                 "Dunukofia", "Ekwusigo", "Idemili North", "Idemili South", "Ihiala", "Njikoka", "Nnewi North",
                 "Nnewi South", "Ogbaru", "Onitsha North", "Onitsha South", "Orumba North", "Orumba South", "Oyi"],
     'Bauchi': ["Alkaleri", "Bauchi", "Bogoro", "Darazo", "Dass", "Gamawa", "Ganjuwa", "Giade", "Itas/Gadau",
-               "Jama'are", "Katagum", "Kirfi", "Misau", "Ningi", "Shira", "Tafawa Balewa", "Toro", "Warji",
-               "Zaki"],
+                "Jama'are", "Katagum", "Kirfi", "Misau", "Ningi", "Shira", "Tafawa Balewa", "Toro", "Warji",
+                "Zaki"],
     'Bayelsa': ["Brass", "Ekeremor", "Kolokuma/Opokuma", "Nembe", "Ogbia", "Sagbama", "Southern Ijaw",
                 "Yenagoa"],
     'Benue': ["Ado", "Agatu", "Apa", "Buruku", "Gboko", "Guma", "Gwer East", "Gwer West", "Katsina-Ala",
-              "Konshisha", "Kwande", "Logo", "Makurdi", "Obi", "Ogbadibo", "Ohimini", "Oju", "Okpokwu",
+                "Konshisha", "Kwande", "Logo", "Makurdi", "Obi", "Ogbadibo", "Ohimini", "Oju", "Okpokwu",
               "Otukpo", "Tarka", "Ukum", "Ushongo", "Vandeikya"],
     'Borno': ["Abadam", "Askira/Uba", "Bama", "Bayo", "Biu", "Chibok", "Damboa", "Dikwa", "Gubio", "Guzamala",
               "Gwoza", "Hawul", "Jere", "Kaga", "Kala/Balge", "Konduga", "Kukawa", "Kwaya Kusar", "Mafa",
-              "Magumeri", "Maiduguri", "Marte", "Mobbar", "Monguno", "Ngala", "Nganzai", "Shani"],
+                "Magumeri", "Maiduguri", "Marte", "Mobbar", "Monguno", "Ngala", "Nganzai", "Shani"],
     'Cross River': ["Abi", "Akamkpa", "Akpabuyo", "Bakassi", "Bekwarra", "Biase", "Boki", "Calabar Municipal",
                     "Calabar South", "Etung", "Ikom", "Obanliku", "Obubra", "Obudu", "Odukpani", "Ogoja",
                     "Yakuur", "Yakurr", "Yala"],
@@ -65,11 +52,10 @@ state_lga_mapping = {
             "Etsako Central", "Etsako East", "Etsako West", "Igueben", "Ikpoba-Okha", "Oredo", "Orhionmwon",
             "Ovia North-East", "Ovia South-West", "Owan East", "Owan West", "Uhunmwonde"],
     'Ekiti': ["Ado Ekiti", "Efon", "Ekiti East", "Ekiti South-West", "Ekiti West", "Emure", "Ido-Osi", "Ijero",
-              "Ikere", "Ikole", "Ilejemeje", "Irepodun/Ifelodun", "Ise/Orun", "Moba", "Oye"],
+              "Ikere", "Ikole", "Ilejemeje", "Irepodun/Ifelodun","Ise/Orun","Moba","Oye"],
 
     'Enugu': ["Aninri", "Awgu", "Enugu East", "Enugu North", "Enugu South", "Ezeagu", "Igbo-Etiti", "Igbo-Eze North",
-              "Igbo-Eze South", "Isi-Uzo", "Nkanu East", "Nkanu West", "Nsukka", "Oji River", "Udenu", "Udi",
-              "Uzo-Uwani"],
+              "Igbo-Eze South", "Isi-Uzo", "Nkanu East", "Nkanu West", "Nsukka", "Oji River", "Udenu", "Udi", "Uzo-Uwani"],
     'Gombe': ["Akko", "Balanga", "Billiri", "Dukku", "Funakaye", "Gombe", "Kaltungo", "Kwami", "Nafada", "Shongom",
               "Yamaltu/Deba"],
     'Imo': ["Aboh-Mbaise", "Ahiazu-Mbaise", "Ehime-Mbano", "Ezinihitte", "Ideato North", "Ideato South", "Ihitte/Uboma",
@@ -132,54 +118,68 @@ state_lga_mapping = {
              "Machina", "Nangere", "Nguru", "Potiskum", "Tarmuwa", "Yunusari", "Yusufari"],
     'Zamfara': ["Anka", "Bakura", "Birnin Magaji/Kiyaw", "Bukkuyum", "Bungudu", "Chafe", "Gummi", "Gusau",
                 "Kaura Namoda", "Maradun", "Maru", "Shinkafi", "Talata Mafara", "Zurmi"]
+};
+
+// Function to populate the state dropdown
+function populateStates() {
+    const stateSelect = document.getElementById('state');
+    const states = Object.keys(lgas);
+
+    // Clear previous options
+    stateSelect.innerHTML = '';
+
+    // Populate states select field with options
+    states.forEach(state => {
+        const option = document.createElement('option');
+        option.value = state;
+        option.text = state;
+        stateSelect.appendChild(option);
+    });
 }
 
+// Function to update LGAs based on the selected state
+function updateLGAs() {
+    const stateSelect = document.getElementById('state');
+    const lgaSelect = document.getElementById('lga');
+    const selectedState = stateSelect.value;
 
-def populate_lga_choices(state):
-    return [(lga, lga) for lga in state_lga_mapping.get(state, [])]
+    // Fetch LGAs for the selected state using AJAX
+    fetch(`/get_lgas/${selectedState}`, { method: 'GET' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch LGAs');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Clear current LGAs options
+            lgaSelect.innerHTML = '';
 
+            // Populate LGAs select field with options
+            data.forEach(lga => {
+                const option = document.createElement('option');
+                option.value = lga.name;
+                option.text = lga.name;
+                lgaSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching LGAs:', error);
+            // You can display an error message to the user here
+        });
+}
 
-class PropertyForm(FlaskForm):
-    first_name = StringField('First Name', validators=[DataRequired()])
-    last_name = StringField('Last Name', validators=[DataRequired()])
-    phone_number = StringField('Phone Number', validators=[DataRequired()])
-    landlord_name = StringField('Address', validators=[DataRequired()])
-    property_type = SelectField('Property Type',
-                                choices=[('duplex', 'Duplex'), ('bungalow', 'Bungalow'), ('apartment', 'Apartment')],
-                                validators=[InputRequired()])
-    number_of_beds = SelectField('Number of Beds',
-                                 choices=[('selfcontain', 'Self-Contain'), ('1', '1'), ('2', '2'), ('3', '3'),
-                                          ('4', '4'), ('5', '5'), ('other', 'Other')], validators=[InputRequired()])
-    location = StringField('Property Address', validators=[DataRequired()])
-    state = SelectField('State',
-                        choices=[('--Not Specified--', '--Not Specified--'), ('Oyo', 'Oyo'), ('Abuja', 'Abuja'),
-                                 ('Abia', 'Abia'), ('Adamawa', 'Adamawa'), ('Akwa Ibom', 'Akwa Ibom'),
-                                 ('Anambra', 'Anambra'), ('Bauchi', 'Bauchi'), ('Bayelsa', 'Bayelsa'),
-                                 ('Benue', 'Benue'), ('Borno', 'Borno'),
-                                 ('Cross River', 'Cross River'), ('Delta', 'Delta'), ('Ebonyi', 'Ebonyi'),
-                                 ('Edo', 'Edo'), ('Ekiti', 'Ekiti'),
-                                 ('Enugu', 'Enugu'), ('Gombe', 'Gombe'), ('Imo', 'Imo'), ('Jigawa', 'Jigawa'),
-                                 ('Kaduna', 'Kaduna'), ('Kano', 'Kano'),
-                                 ('Katsina', 'Katsina'), ('Kebbi', 'Kebbi'), ('Kogi', 'Kogi'), ('Kwara', 'Kwara'),
-                                 ('Lagos', 'Lagos'),
-                                 ('Nasarawa', 'Nasarawa'), ('Niger', 'Niger'), ('Ogun', 'Ogun'), ('Ondo', 'Ondo'),
-                                 ('Osun', 'Osun'),
-                                 ('Plateau', 'Plateau'), ('Rivers', 'Rivers'), ('Sokoto', 'Sokoto'),
-                                 ('Taraba', 'Taraba'),
-                                 ('Yobe', 'Yobe'), ('Zamfara', 'Zamfara')], validators=[InputRequired()])
-    lga = SelectField('Local Government Area', choices=[], validators=[InputRequired()])
-    street = StringField('Street Name')
-    price = DecimalField('Price', validators=[InputRequired(), NumberRange(min=100000, max=1000000)])
-    youtube_links = TextAreaField('Youtube Video Links')
-    image_upload = FileField('Upload Images')
-    submit = SubmitField('Submit')
+// Add an event listener to the state select field
+document.getElementById('state').addEventListener('change', updateLGAs);
 
-    def __init__(self, *args, **kwargs):
-        super(PropertyForm, self).__init__(*args, **kwargs)
-        self.state.choices = [(state, state) for state in state_lga_mapping.keys()]
-        self.lga.choices = populate_lga_choices(self.state.data)
+// Initial population of states and LGAs
+populateStates();
+updateLGAs();
 
+const priceInput = document.getElementById('price');
+const priceOutput = document.getElementById('price-output');
 
-class SearchForm(FlaskForm):
-    desired_location = StringField('Desired Location', validators=[DataRequired()])
-    submit = SubmitField('Search')
+priceInput.addEventListener('input', () => {
+    const price = priceInput.value;
+    priceOutput.textContent = `N${price.toLocaleString()}`;
+});
