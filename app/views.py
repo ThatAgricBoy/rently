@@ -4,6 +4,7 @@ from .models import Property, State, LGA
 from .forms import PropertyForm, SearchForm
 from . import db
 import base64
+from sqlalchemy import or_
 
 views = Blueprint('views', __name__)
 

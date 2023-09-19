@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FileField
+from wtforms import StringField, PasswordField, SubmitField, FileField, FloatField
+from wtforms.fields.numeric import IntegerField
 from wtforms.validators import DataRequired, Email, length, InputRequired, NumberRange
 from wtforms import SelectField, TextAreaField, DecimalField
 from wtforms.validators import EqualTo
@@ -181,5 +182,11 @@ class PropertyForm(FlaskForm):
 
 
 class SearchForm(FlaskForm):
-    desired_location = StringField('Desired Location', validators=[DataRequired()])
+    desired_location = StringField('Desired Location')
+    number_of_beds = IntegerField('Number of Beds')
+    lga = StringField('LGA')
+    price = FloatField('Price')
+    street_name = StringField('Street Name')
+    generic_search = StringField('Generic Search')
+    property_type = SelectField('Property Type', choices=[('duplex', 'Duplex'), ('bungalow', 'Bungalow'), ('apartment', 'Apartment')])
     submit = SubmitField('Search')
